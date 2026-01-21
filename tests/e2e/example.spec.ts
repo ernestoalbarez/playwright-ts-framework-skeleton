@@ -1,8 +1,8 @@
-import { customTest as test } from '../../fixtures/testFixtures';
-import { expect } from '@playwright/test';
+import { test, expect } from '../../fixtures/testFixtures';
 
 test.describe('Example test', () => {
-  test('example test using fixture', async ({ blankPage }) => {
-    expect(await blankPage.title()).toBe('');
+  test('example test using fixture', async ({ homePage }) => {
+    await homePage.open();
+    expect(await homePage.page.title()).toBe('');
   });
 });

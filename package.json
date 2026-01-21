@@ -1,7 +1,7 @@
 {
-  "name": "mercadolibre-playwright-e2e-automation",
+  "name": "ts-playwright-e2e-automation-skeleton",
   "version": "0.1.0",
-  "description": "End-to-end automation framework for MercadoLibre Argentina using Playwright and TypeScript.",
+  "description": "A professional base skeleton for E2E automation projects using Playwright, TypeScript, ESLint v9, and Husky.",
   "type": "module",
   "scripts": {
     "test": "playwright test",
@@ -9,7 +9,7 @@
     "test:debug": "playwright test --debug",
     "report": "playwright show-report",
     "prepare": "husky install",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint .",
     "format": "prettier --write ."
   },
   "keywords": [
@@ -42,8 +42,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }

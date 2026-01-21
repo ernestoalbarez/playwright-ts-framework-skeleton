@@ -1,34 +1,43 @@
-import { defineConfig } from 'eslint-define-config';
 import tsParser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import playwrightPlugin from 'eslint-plugin-playwright';
 
-export default defineConfig({
-  languageOptions: {
-    parser: tsParser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
+export default [
+  {
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'playwright-report/**',
+      'test-results/**'
+    ],
+  },
+    {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      },
+      globals: {
+        process: 'readonly',
+        __dirname: 'readonly',
+        module: 'readonly',
+        console: 'readonly',
+      },
     },
-    globals: {
-      process: 'readonly',
-      __dirname: 'readonly',
-      module: 'readonly',
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+      'playwright': playwrightPlugin,
+    },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'off',
+      ...playwrightPlugin.configs.recommended.rules,
+      'playwright/no-skipped-test': 'warn',      
+      'no-undef': 'error',
     },
   },
-  plugins: {
-    '@typescript-eslint': tsPlugin,
-    playwright: playwrightPlugin,
-  },
-  rules: {
-    'no-unused-vars': 'warn',
-    'no-undef': 'error',
-    '@typescript-eslint/no-unused-vars': 'warn',
-    '@typescript-eslint/no-explicit-any': 'off',
-  },
-  ignores: [
-    'node_modules/**',
-    'dist/**',
-    'playwright-report/**'
-  ],
-});
+];

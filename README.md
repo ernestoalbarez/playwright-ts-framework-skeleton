@@ -1,69 +1,77 @@
 # Playwright TypeScript Automation Framework Skeleton
 
-This repository serves as a **base skeleton for end-to-end (E2E) automation** with Playwright and TypeScript.  
-It provides a clean, professional setup for creating maintainable automation projects.
+A robust, production-ready skeleton for End-to-End (E2E) automation. This boilerplate focuses on maintainability, type safety, and developer experience using Playwright and TypeScript.
 
 ---
 
-## Features
+## Key Features
 
-- **TypeScript** support for type-safe tests
-- **Playwright** for reliable cross-browser E2E automation
-- **ESLint v9 (flat config)** + **Prettier** for consistent code style
-- **Husky + lint-staged** pre-commit hooks to enforce linting & formatting
-- Structure ready for **Page Objects**, **fixtures**, and **utility functions**
-- Ignored directories for Playwright reports and builds
+* **Type-Safe Testing:** Full TypeScript integration.
+* **Modern Linting:** ESLint v9 (Flat Config) & Prettier for uncompromising code quality.
+* **Git Hooks:** Automated pre-commit checks with Husky and lint-staged.
+* **Architecture Ready:** Structured for Page Object Model (POM), custom fixtures, and utility helpers.
+* **Optimized CI/CD:** Ready for headless execution and automated reporting.
 
 ---
 
-## Folder Structure
+## Project Structure
+
+```text
+├── tests/e2e/          # Test suites & E2E scenarios
+├── pages/              # Page Object Models (POM)
+├── fixtures/           # Custom Playwright fixtures
+├── utils/              # Shared helper functions
+├── playwright-report/  # Test execution artifacts (Git ignored)
+└── eslint.config.js    # Modern ESLint configuration
 ```
-tests/e2e/       # Your E2E test files
-pages/           # Page Object Models
-fixtures/        # Reusable fixtures
-utils/           # Helper functions
-playwright-report/  # Playwright-generated reports (ignored by ESLint)
-```
 
 ---
 
-## Installation
+## Getting Started
 
-1. Clone the template repository or use GitHub's **Use this template** feature.
+**Prerequisites**
+Ensure you have [Node.js](https://nodejs.org/) installed (v18+ recommended).
+
+**Installation**
+1. Clone this template:
+```bash
+git clone <repo-url>
+cd <project-folder>
+```
+
 2. Install dependencies:
-
 ```bash
 npm install
+```
+
+3. Install Playwright Browsers:
+```bash
 npx playwright install
 ```
 
-3.	Verify setup by running a test (if any exist):
-```basb
-npm test
-```
+---
+
+## Available Scripts
+| Command | Action |
+| :--- | :--- |
+| `npm test` | Executes all Playwright tests |
+| `npm run lint` | Runs ESLint to check for code issues |
+| `npm run format` | Auto-formats code using Prettier |
+
+> **Note:** Pre-commit hooks will automatically run `lint` and `format` on staged files to ensure code consistency.
 
 ---
 
-## Scripts
-- npm run lint → Runs ESLint on all TypeScript files
-- npm run format → Formats files using Prettier
-- npm test → Runs Playwright tests
-- Pre-commit hooks automatically run lint & format on staged files
+## Best Practices Included
+
+- **Isolation:** Each test runs in its own browser context.
+- **Scalability:** Folder structure follows the Page Object Model pattern.
+- **Clean Code:** Ignored directories (dist/, playwright-report/) keep the workspace clutter-free.
 
 ---
 
-## Usage
-1.	Add your tests in tests/e2e/
-2.	Add Page Objects in pages/
-3.	Add helpers in utils/ and fixtures in fixtures/
-4.	Run npm run lint and npm run format to keep code clean
-5.	Commit changes; Husky + lint-staged will enforce code quality
+##  License
 
----
-
-## Notes
-- playwright-report/ and dist/ are ignored by ESLint to prevent analyzing generated files
-- This skeleton is meant to be reused as a template for any future Playwright + TypeScript project
-- Extend and customize rules in eslint.config.js as needed for your project
+This project is licensed under the **MIT License**.
 
 ---

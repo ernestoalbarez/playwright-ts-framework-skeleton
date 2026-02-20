@@ -7,7 +7,11 @@ export class HomeLocators {
     this.page = page;
   }
 
+  /**
+   * Note: Always prefer data-testid for locators in a professional framework.
+   * This is a placeholder for the skeleton.
+   */
   get acceptCookiesButton(): Locator {
-    return this.page.locator('button.accept-cookies-button');
+    return this.page.getByRole('button', { name: /accept|cookies/i });
   }
 }

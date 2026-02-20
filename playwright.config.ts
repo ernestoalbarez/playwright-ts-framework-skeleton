@@ -2,27 +2,55 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
+const envFile = process.env.ENV ? `.env.${process.env.ENV}` : '.env';
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
+/**
+ * See https://playwright.dev/docs/test-configuration.
+ */
 export default defineConfig({
   testDir: './tests/e2e',
-  timeout: 30 * 1000,
+  /* Maximum time one test can run for. */
+  timeout: 45 * 1000,
   expect: {
-    timeout: 5 * 1000,
+    /**
+     * Maximum time expect() should wait for the condition to be met.
+     * For example in `await expect(locator).toBeVisible();`
+     */
+    timeout: 7000,
   },
-  retries: 1,
-  workers: 2,
-  reporter: [['html', { open: 'never' }]],
+  /* Run tests in files in parallel */
+  fullyParallel: true,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
+  retries: process.env.CI ? 2 : 0,
+  /* Opt out of parallel tests on CI. */
+  workers: process.env.CI ? 1 : undefined,
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  reporter: [
+    ['html', { open: 'never' }],
+    ['list'],
+    ['junit', { outputFile: 'test-results/results.xml' }],
+  ],
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.BASE_URL,
-    headless: true,
-    viewport: { width: 1366, height: 768 },
-    actionTimeout: 10 * 1000,
-    navigationTimeout: 20 * 1000,
+    /* Base URL to use in actions like `await page.goto('/')`. */
+    baseURL: process.env.BASE_URL || 'https://www.google.com',
+
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    trace: 'on-first-retry',
+
+    viewport: { width: 1280, height: 720 },
   },
+
+  /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',

@@ -16,8 +16,8 @@ export class HomePage extends BasePage {
   }
 
   private async acceptCookiesIfPresent(): Promise<void> {
-    if (await this.locators.acceptCookiesButton.isVisible()) {
-      await this.locators.acceptCookiesButton.click();
+    if (await this.isElementVisible(this.locators.acceptCookiesButton, 3000)) {
+      await this.clickElement(this.locators.acceptCookiesButton);
     }
   }
 }

@@ -11,7 +11,7 @@ export default [
       'test-results/**'
     ],
   },
-    {
+  {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     languageOptions: {
       parser: tsParser,
@@ -24,6 +24,8 @@ export default [
         __dirname: 'readonly',
         module: 'readonly',
         console: 'readonly',
+        setTimeout: 'readonly',
+        global: 'readonly',
       },
     },
     plugins: {
@@ -36,7 +38,7 @@ export default [
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'off',
       ...playwrightPlugin.configs.recommended.rules,
-      'playwright/no-skipped-test': 'warn',      
+      'playwright/no-skipped-test': 'warn',
       'no-undef': 'error',
     },
   },
